@@ -1,0 +1,20 @@
+{
+  "name": "bunyan-slack",
+  "version": "0.0.1",
+  "description": "slack transport for bunyan",
+  "main": "./lib/bunyan-slack",
+  "dependencies": {
+    "bunyan": "^1.3.3",
+    "extend.js": "0.0.2",
+    "node-slack": "^0.0.5",
+    "request": "^2.51.0"
+  },
+  "contributors": [
+    {
+      "name": "Seth Pollack",
+      "email": "seth@sethpollack.net"
+    }
+  ],
+  "author": "Seth Pollack",
+  "license": "MIT"
+}
