@@ -5,7 +5,6 @@
   "main": "./lib/bunyan-slack",
   "dependencies": {
     "extend.js": "0.0.2",
-    "node-slack": "^0.0.5",
     "request": "^2.51.0"
   },
   "repository": {
