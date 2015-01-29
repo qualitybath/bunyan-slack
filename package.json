@@ -1,7 +1,7 @@
 {
   "name": "bunyan-slack",
   "version": "0.0.6",
-  "description": "slack transport for bunyan",
+  "description": "slack stream for bunyan",
   "main": "./lib/bunyan-slack",
   "dependencies": {
     "extend.js": "0.0.2",
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/qualitybath/bunyan-slack"
   },
-  "keywords": ["logging", "slack", "bunyan", "log", "logger"],
+  "keywords": ["logging", "slack", "bunyan", "log", "logger", "transport", "stream"],
   "bugs": {
     "url": "https://github.com/qualitybath/bunyan-slack/issues"
   },
