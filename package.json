@@ -1,6 +1,6 @@
 {
   "name": "bunyan-slack",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "description": "slack transport for bunyan",
   "main": "./lib/bunyan-slack",
   "dependencies": {
@@ -8,15 +8,17 @@
     "request": "^2.51.0"
   },
   "repository": {
-    "type" : "git",
+    "type": "git",
     "url": "https://github.com/qualitybath/bunyan-slack"
   },
-  "contributors": [
-    {
-      "name": "Seth Pollack",
-      "email": "seth@sethpollack.net"
-    }
-  ],
+  "keywords": ["logging", "slack", "bunyan", "log", "logger"],
+  "bugs": {
+    "url": "https://github.com/qualitybath/bunyan-slack/issues"
+  },
+  "contributors": [{
+    "name": "Seth Pollack",
+    "email": "seth@sethpollack.net"
+  }],
   "author": "Seth Pollack",
   "license": "MIT"
 }
