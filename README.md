@@ -22,12 +22,12 @@ npm install bunyan-slack
 
 ```javascript
 var bunyan  = require("bunyan"),
-bunyanSlack = require('bunyan-slack'),
-log;
+	BunyanSlack = require('bunyan-slack'),
+	log;
 
 log = bunyan.createLogger({
 	name: "myApp",
-	stream: new bunyanSlack({
+	stream: new BunyanSlack({
 		webhook_url: "your_webhook_url",
 		channel: "your_channel",
 		username: "your_username",
@@ -35,7 +35,7 @@ log = bunyan.createLogger({
 	level: "error"
 });
 
-log.info("hello bunyan slack");
+log.error("hello bunyan slack");
 ```
 ##Custom Formatters
 
@@ -44,7 +44,7 @@ By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you spe
 ```javascript
 	log = bunyan.createLogger({
 	name: "myApp",
-	stream: new bunyanSlack({
+	stream: new BunyanSlack({
 		webhook_url: "your_webhook_url",
 		channel: "your_channel",
 		username: "your_username",
@@ -130,12 +130,12 @@ You can use [Slack's standard message markup](https://api.slack.com/docs/formatt
 ###Putting it all together
 ```javascript
 var bunyan  = require("bunyan"),
-bunyanSlack = require('bunyan-slack'),
-log;
+	BunyanSlack = require('bunyan-slack'),
+	log;
 
 log = bunyan.createLogger({
 	name: 'myapp',
-	stream: new bunyanSlack({
+	stream: new BunyanSlack({
 		webhook_url: 'your_webhook_url',
 		icon_url: "your_icon_url",
 		channel: 'your_channel',
@@ -162,7 +162,7 @@ log = bunyan.createLogger({
 			};
 		}
 	}),
-	level: 'info'
+	level: 'error'
 });
 ```
 
