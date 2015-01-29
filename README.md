@@ -48,8 +48,8 @@ By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you spe
 		webhook_url: "your_webhook_url",
 		channel: "your_channel",
 		username: "your_username",
-		customFormatter: function(record){
-			return {text: "[" + record.level + "] " + record.msg }
+		customFormatter: function(record, levelName){
+			return {text: "[" + levelName + "] " + record.msg }
 		}
 	}),
 	level: "error"
@@ -141,7 +141,7 @@ log = bunyan.createLogger({
 		channel: 'your_channel',
 		username: "your_username",
 		icon_emoji: ":scream_cat:",
-		customFormatter: function(record) {
+		customFormatter: function(record, levelName) {
 			return {
 				attachments: [{
 					fallback: "Required plain-text summary of the attachment.",
@@ -154,7 +154,7 @@ log = bunyan.createLogger({
 					title_link: "https://api.slack.com/",
 					text: "Optional text that appears within the attachment",
 					fields: [{
-						title: "We have a new incoming log",
+						title: "We have a new " + levelName + " log",
 						value: ":scream_cat: " + record.msg,
 						short: true
 					}]
