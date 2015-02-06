@@ -26,6 +26,9 @@
     "transport",
     "stream"
   ],
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha"
+  }
   "bugs": {
     "url": "https://github.com/qualitybath/bunyan-slack/issues"
   },
