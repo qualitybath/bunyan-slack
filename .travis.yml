@@ -2,6 +2,5 @@ language: node_js
 node_js:
   - "0.11"
   - "0.10"
-
-  after_success:
-- ./node_modules/.bin/mocha /test/**.js -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
+after_success:
+ - ./node_modules/.bin/mocha /test/**.js -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js
