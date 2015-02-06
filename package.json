@@ -9,8 +9,9 @@
   },
   "devDependencies": {
     "chai": "^1.10.0",
-    "sinon": "^1.12.2",
-    "expect.js": "^0.3.1"
+    "coveralls": "^2.11.2",
+    "mocha-lcov-reporter": "0.0.1",
+    "sinon": "^1.12.2"
   },
   "repository": {
     "type": "git",

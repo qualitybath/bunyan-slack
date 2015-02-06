@@ -1,31 +1,40 @@
 var request = require('request'),
 sinon       = require('sinon'),
-expect      = require('expect.js'),
+expect      = require('chai').expect,
 Bunyan      = require("bunyan"),
 BunyanSlack = require('../lib/bunyan-slack');
 
 describe("bunyan-slack", function() {
 
-	describe("logger arguments", function() {
+	var sandbox;
+	beforeEach(function(){
+		sandbox = sinon.sandbox.create();
+		sandbox.stub(request, "post");
+	});
 
-		var sandbox;
-		before(function(){
-			sandbox = sinon.sandbox.create();
-			sandbox.stub(request, "post");
+	afterEach(function(){
+		sandbox.restore();
+	});
+
+	describe("constructor", function() {
+
+		it("should require a webhook", function() {
+
+			expect(function(){
+				Bunyan.createLogger({
+					name: 'myapp',
+					stream: new BunyanSlack({}),
+					level: 'info'
+				});
+			}).to.throw(Error);
 		});
 
-		after(function(){
-			sandbox.restore();
-		});
-
-		it("should require a webhook", function() {});
-
-		it("should take a single string", function(){
+		it("should set defaults", function(){
 
 			var log = Bunyan.createLogger({
 				name: 'myapp',
 				stream: new BunyanSlack({
-					webhook_url: 'webhook'
+					webhook_url: 'mywebhookurl'
 				}),
 				level: 'info'
 			});
@@ -37,13 +46,107 @@ describe("bunyan-slack", function() {
 						icon_emoji: ":scream_cat:",
 						text: "[INFO] foobar"
 					}),
-					url: "webhook"
+					url: "mywebhookurl"
 			};
 
 			log.info("foobar");
 			sinon.assert.calledWith(request.post, expectedResponse);
 		});
 
+		it("should override defaults", function(){
+
+			var log = Bunyan.createLogger({
+				name: 'myapp',
+				stream: new BunyanSlack({
+					webhook_url: 'mywebhookurl',
+					channel: "#bunyan-slack",
+					username: "@sethpollack",
+					icon_emoji: ":smile:",
+					icon_url: "http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200"
+				}),
+				level: 'info'
+			});
+
+			var expectedResponse = {
+					body: JSON.stringify({
+						channel: "#bunyan-slack",
+						username: "@sethpollack",
+						icon_url: "http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200",
+						icon_emoji: ":smile:",
+						text: "[INFO] foobar"
+					}),
+					url: "mywebhookurl"
+			};
+
+			log.info("foobar");
+			sinon.assert.calledWith(request.post, expectedResponse);
+		});
+
+		it("should use the custom formatter", function(){
+
+			var log = Bunyan.createLogger({
+				name: 'myapp',
+				stream: new BunyanSlack({
+					webhook_url: 'mywebhookurl',
+					customFormatter: function(record, levelName){
+						return {
+								attachments: [{
+										fallback: "Required plain-text summary of the attachment.",
+										color: '#36a64f',
+										pretext: "Optional text that appears above the attachment block",
+										author_name: "Seth Pollack",
+										author_link: "http://sethpollack.net",
+										author_icon: "http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200",
+										title: "Slack API Documentation",
+										title_link: "https://api.slack.com/",
+										text: "Optional text that appears within the attachment",
+										fields: [{
+												title: "We have a new " + levelName + " log",
+												value: ":scream_cat: " + record.msg,
+												short: true
+										}]
+								}]
+						};
+					}
+				}),
+				level: 'info'
+			});
+
+			var expectedResponse = {
+					body: JSON.stringify({
+						channel: "#general",
+						username: "Bunyan Slack",
+						icon_emoji: ":scream_cat:",
+						attachments: [{
+							fallback: "Required plain-text summary of the attachment.",
+							color: "#36a64f",
+							pretext: "Optional text that appears above the attachment block",
+							author_name: "Seth Pollack",
+							author_link: "http://sethpollack.net",
+							author_icon: "http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200",
+							title: "Slack API Documentation",
+							title_link: "https://api.slack.com/",
+							text: "Optional text that appears within the attachment",
+							fields:[{
+								title:"We have a new info log",
+								value:":scream_cat: foobar",
+								short:true
+							}]
+						}]
+					}),
+					url: "mywebhookurl"
+			};
+
+			log.info("foobar");
+			sinon.assert.calledWith(request.post, expectedResponse);
+		});
+	});
+
+	describe("loggger arguments", function(){
+
+		it("should accept a single string argument", function(){});
+		it("should accept a single object argument", function(){});
+		it("should accept an object and string as arguments", function(){});
 
 	});
 
