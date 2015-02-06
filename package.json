@@ -5,9 +5,7 @@
   "main": "./lib/bunyan-slack",
   "dependencies": {
     "extend.js": "0.0.2",
-    "request": "^2.51.0"
-  },
-  "devDependencies": {
+    "request": "^2.51.0",
     "chai": "^1.10.0",
     "coveralls": "^2.11.2",
     "mocha-lcov-reporter": "0.0.1",
