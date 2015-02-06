@@ -2,7 +2,9 @@
 [![bunyan-slack](http://img.shields.io/npm/v/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
 [![bunyan-slack](http://img.shields.io/npm/dm/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
 [![bunyan-slack](http://img.shields.io/npm/l/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
+[![Build Status](https://img.shields.io/travis/qualitybath/bunyan-slack.svg?style=flat-square)](https://travis-ci.org/qualitybath/bunyan-slack)
 
+[![Coveralls](https://img.shields.io/coveralls/qualitybath/bunyan-slack.svg?style=flat-square)](https://coveralls.io/r/qualitybath/bunyan-slack)
 
 **Bunyan stream for Slack chat integration**
 
