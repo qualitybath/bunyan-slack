@@ -29,7 +29,7 @@
     "stream"
   ],
   "scripts": {
-    "test": "make test"
+    "test": "istanbul cover _mocha --report lcovonly"
   },
   "bugs": {
     "url": "https://github.com/qualitybath/bunyan-slack/issues"
