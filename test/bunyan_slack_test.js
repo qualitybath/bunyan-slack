@@ -27,7 +27,7 @@ describe("bunyan-slack", function() {
 					stream: new BunyanSlack({}),
 					level: 'info'
 				});
-			}).to.throw(Error);
+			}).to.throw(/webhook url cannot be null/);
 		});
 
 		it("should set defaults", function(){
