@@ -10,7 +10,9 @@ describe("bunyan-slack", function() {
 	var sandbox;
 	beforeEach(function(){
 		sandbox = sinon.sandbox.create();
-		sandbox.stub(request, "post");
+		sandbox.stub(request, "post").returns({
+			on: function(){}
+		});
 	});
 
 	afterEach(function(){
