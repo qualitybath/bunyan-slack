@@ -39,6 +39,18 @@ log = bunyan.createLogger({
 
 log.error("hello bunyan slack");
 ```
+You can also pass an optional error handler.
+
+```javascript
+new BunyanSlack({
+	webhook_url: "your_webhook_url",
+	channel: "your_channel",
+	username: "your_username",
+}, function(error){
+	console.log(error);
+});
+```
+
 ##Custom Formatters
 
 By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you specify a `customFormatter` function.
