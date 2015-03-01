@@ -56,6 +56,25 @@ describe("bunyan-slack", function() {
 			sinon.assert.calledWith(request.post, expectedResponse);
 		});
 
+		it("should use error handler", function(done) {
+
+			var log = Bunyan.createLogger({
+				name: 'myapp',
+				stream: new BunyanSlack({
+					webhook_url: 'mywebhookurl',
+					customFormatter: function(record, levelName){
+						return record.foo();
+					}
+				}, function(error){
+					expect(error).to.instanceof(TypeError);
+					done();
+				}),
+				level: 'info'
+			});
+			log.info("foobar");
+
+		});
+
 		it("should override defaults", function(){
 
 			var log = Bunyan.createLogger({
@@ -223,12 +242,6 @@ describe("bunyan-slack", function() {
 		});
 
 	});
-
-
-
-
-
-
 });
 
 
