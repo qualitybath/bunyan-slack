@@ -82,6 +82,29 @@ describe('bunyan-slack', function() {
 			sinon.assert.calledWith(request.post, expectedResponse);
 		});
 
+		it('should allow nullable channel', function() {
+			var log = Bunyan.createLogger({
+				name: 'myapp',
+				stream: new BunyanSlack({
+					webhook_url: 'mywebhookurl',
+					channel: null
+				}),
+				level: 'info'
+			});
+
+			var expectedResponse = {
+					body: JSON.stringify({
+						username: 'Bunyan Slack',
+						icon_emoji: ':scream_cat:',
+						text: '[INFO] foobar'
+					}),
+					url: 'mywebhookurl'
+			};
+
+			log.info('foobar');
+			sinon.assert.calledWith(request.post, expectedResponse);
+		});
+
 		it('should use the custom formatter', function() {
 			var log = Bunyan.createLogger({
 				name: 'myapp',
