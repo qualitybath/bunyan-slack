@@ -70,76 +70,7 @@ By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you spe
 });
 ```
 ##Custom Formatter Options
-> Formatting options below are taken from the [slack docs](https://api.slack.com/incoming-webhooks)
-
-For a simple message, your JSON payload must contain a text property.
-This is the text that will be posted to the channel.
-```javascript
-{
-    "text": "This is a line of text.\nAnd this is another one."
-}
-```
-
-This will be displayed in the channel as:
-
-![enter image description here](https://api.slack.com/img/api/incoming_simple.png)
-
-###Adding Links
-To create a link in your text, enclose the URL in <> angle brackets. For example: `payload={"text": "<https://slack.com>"}` will post a clickable link to [https://slack.com](https://slack.com).
-
-To display hyperlinked text instead of the actual URL, use the pipe character, as shown in this example:
-```javascript
-{
-    "text": "<https://alert-system.com/alerts/1234|Click here> for details!"
-}
-```
-This will be displayed in the channel as:
-
-![enter image description here](https://api.slack.com/img/api/incoming_link.png)
-
-###Customized Name and Icon
-You can override an incoming webhook's configured name with the `username` parameter in your JSON payload.
-
-You can also override the bot icon either with `icon_url` or `icon_emoji`.
-
-```javascript
-{
-    "username": "new-bot-name",
-
-    "icon_url": "https://slack.com/img/icons/app-57.png",
-    "icon_emoji": ":ghost:"
-}
-```
-An overridden username and icon could look like this:
-
-![enter image description here](https://api.slack.com/img/api/incoming_name_icon.png)
-
-###Channel Override
-
-Incoming webhooks have a default channel. You can override it with the `channel` parameter in your JSON payload.
-
-A public channel can be specified with `"channel": "#other-channel"`, and a Direct Message with `"channel": "@username"`.
-
-```javascript
-{
-    "channel": "#other-channel",    // A public channel override
-    "channel": "@username",         // A Direct Message override
-}
-```
-
-###Defaults
-bunyan-slack sets the following defaults:
-
-*  `channel` => `"#general"`
-* `username` => `"Bunyan Slack"`
-* `icon_emoji` => `":scream_cat:"`
-
-
-###Advanced Message Formatting
-You can use [Slack's standard message markup](https://api.slack.com/docs/formatting) to add simple formatting to your messages. You can also use [message attachments](https://api.slack.com/docs/attachments) to display richly-formatted message blocks.
-
-![enter image description here](https://api.slack.com/img/api/attachment_fields.png)
-
+> Check the [slack docs](https://api.slack.com/incoming-webhooks) for custom formatter options.
 
 ###Putting it all together
 ```javascript
