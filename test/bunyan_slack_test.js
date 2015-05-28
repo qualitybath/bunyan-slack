@@ -31,30 +31,7 @@ describe('bunyan-slack', function() {
 			}).to.throw(/webhook url cannot be null/);
 		});
 
-		it('should set defaults', function() {
-			var log = Bunyan.createLogger({
-				name: 'myapp',
-				stream: new BunyanSlack({
-					webhook_url: 'mywebhookurl'
-				}),
-				level: 'info'
-			});
-
-			var expectedResponse = {
-					body: JSON.stringify({
-						channel: '#general',
-						username: 'Bunyan Slack',
-						icon_emoji: ':scream_cat:',
-						text: '[INFO] foobar'
-					}),
-					url: 'mywebhookurl'
-			};
-
-			log.info('foobar');
-			sinon.assert.calledWith(request.post, expectedResponse);
-		});
-
-		it('should override defaults', function() {
+		it('should set options', function() {
 			var log = Bunyan.createLogger({
 				name: 'myapp',
 				stream: new BunyanSlack({
@@ -113,9 +90,6 @@ describe('bunyan-slack', function() {
 
 			var expectedResponse = {
 					body: JSON.stringify({
-						channel: '#general',
-						username: 'Bunyan Slack',
-						icon_emoji: ':scream_cat:',
 						attachments: [{
 							fallback: 'Required plain-text summary of the attachment.',
 							color: '#36a64f',
@@ -187,9 +161,6 @@ describe('bunyan-slack', function() {
 
 			var expectedResponse = {
 					body: JSON.stringify({
-						channel: '#general',
-						username: 'Bunyan Slack',
-						icon_emoji: ':scream_cat:',
 						text: '[INFO] foobar'
 					}),
 					url: 'mywebhookurl'
@@ -213,9 +184,6 @@ describe('bunyan-slack', function() {
 
 			var expectedResponse = {
 					body: JSON.stringify({
-						channel: '#general',
-						username: 'Bunyan Slack',
-						icon_emoji: ':scream_cat:',
 						text: '[INFO] foobar'
 					}),
 					url: 'mywebhookurl'
@@ -239,9 +207,6 @@ describe('bunyan-slack', function() {
 
 			var expectedResponse = {
 					body: JSON.stringify({
-						channel: '#general',
-						username: 'Bunyan Slack',
-						icon_emoji: ':scream_cat:',
 						text: '[INFO] this is the error & this is the message'
 					}),
 					url: 'mywebhookurl'
