@@ -41,7 +41,7 @@ log.error("hello bunyan slack");
 ```
 You can also pass an optional error handler.
 
-The channel property must include a `#` or Slack will reject the message.
+Specify a Slack channel by name with "channel": "#other-channel", or send a Slackbot message to a specific user with "channel": "@username".
 
 ```javascript
 new BunyanSlack({
@@ -62,7 +62,7 @@ By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you spe
 	name: "myApp",
 	stream: new BunyanSlack({
 		webhook_url: "your_webhook_url",
-		channel: "your_channel",
+		channel: "#your_channel",
 		username: "your_username",
 		customFormatter: function(record, levelName){
 			return {text: "[" + levelName + "] " + record.msg }
@@ -85,7 +85,7 @@ log = bunyan.createLogger({
 	stream: new BunyanSlack({
 		webhook_url: 'your_webhook_url',
 		icon_url: "your_icon_url",
-		channel: 'your_channel',
+		channel: '#your_channel',
 		username: "your_username",
 		icon_emoji: ":scream_cat:",
 		customFormatter: function(record, levelName) {
