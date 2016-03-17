@@ -31,7 +31,7 @@ log = bunyan.createLogger({
 	name: "myApp",
 	stream: new BunyanSlack({
 		webhook_url: "your_webhook_url",
-		channel: "your_channel",
+		channel: "#your_channel",
 		username: "your_username",
 	}),
 	level: "error"
@@ -41,10 +41,12 @@ log.error("hello bunyan slack");
 ```
 You can also pass an optional error handler.
 
+The channel property must include a `#` or Slack will reject the message.
+
 ```javascript
 new BunyanSlack({
 	webhook_url: "your_webhook_url",
-	channel: "your_channel",
+	channel: "#your_channel",
 	username: "your_username",
 }, function(error){
 	console.log(error);
