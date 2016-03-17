@@ -41,7 +41,7 @@ log.error("hello bunyan slack");
 ```
 You can also pass an optional error handler.
 
-Specify a Slack channel by name with "channel": "#other-channel", or send a Slackbot message to a specific user with "channel": "@username".
+Specify a Slack channel by name with `"channel": "#other-channel"`, or send a Slackbot message to a specific user with `"channel": "@username"`.
 
 ```javascript
 new BunyanSlack({
