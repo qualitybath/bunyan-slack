@@ -56,7 +56,9 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info('foobar');
-			sinon.assert.calledWith(request.post, expectedResponse);
+            setTimeout(function() {
+                sinon.assert.calledWith(request.post, expectedResponse);
+            }, 1000)
 		});
 
 		it('should use the custom formatter', function() {
@@ -111,8 +113,10 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info('foobar');
-			sinon.assert.calledWith(request.post, expectedResponse);
-		});
+            setTimeout(function() {
+                sinon.assert.calledWith(request.post, expectedResponse);
+            }, 1000)
+        });
 	});
 
 	describe('error handler', function() {
@@ -145,11 +149,13 @@ describe('bunyan-slack', function() {
 				level: 'info'
 			});
 			log.info('foobar');
-			errorHandler.firstCall.args[1]('FAKE ERROR');
-		});
+            setTimeout(function() {
+				errorHandler.lastCall.args[1]('FAKE ERROR');
+            }, 1000)
+        });
 	});
 
-	describe('loggger arguments', function() {
+	describe('logger arguments', function() {
 		it('should accept a single string argument', function() {
 			var log = Bunyan.createLogger({
 				name: 'myapp',
@@ -167,7 +173,9 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info('foobar');
-			sinon.assert.calledWith(request.post, expectedResponse);
+            setTimeout(function() {
+                sinon.assert.calledWith(request.post, expectedResponse);
+            }, 1000);
 		});
 
 		it('should accept a single object argument', function() {
@@ -190,8 +198,11 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info({error: 'foobar'});
-			sinon.assert.calledWith(request.post, expectedResponse);
-		});
+            setTimeout(function() {
+                sinon.assert.calledWith(request.post, expectedResponse);
+            }, 1000);
+
+        });
 
 		it('should accept an object and string as arguments', function() {
 			var log = Bunyan.createLogger({
@@ -212,8 +223,11 @@ describe('bunyan-slack', function() {
 					url: 'mywebhookurl'
 			};
 			log.info({error: 'this is the error'}, 'this is the message');
-			sinon.assert.calledWith(request.post, expectedResponse);
-		});
+            setTimeout(function() {
+                sinon.assert.calledWith(request.post, expectedResponse);
+            }, 1000);
+
+        });
 	});
 });
 
