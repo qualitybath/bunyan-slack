@@ -54,12 +54,44 @@ describe('bunyan-slack', function() {
 					}),
 					url: 'mywebhookurl'
 			};
-
 			log.info('foobar');
+			sinon.assert.calledWith(request.post, expectedResponse);
+        });
+
+        it('should only deliver last message if there is a message burst', function() {
+            var log = Bunyan.createLogger({
+                name: 'myapp',
+                stream: new BunyanSlack({
+                    webhook_url: 'mywebhookurl',
+                    channel: '#bunyan-slack',
+                    username: '@sethpollack',
+                    icon_emoji: ':smile:',
+                    icon_url: 'http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200',
+                    rate_limit_interval: 1000
+                }),
+                level: 'info'
+            });
+
+            var expectedResponse = {
+                body: JSON.stringify({
+                    channel: '#bunyan-slack',
+                    username: '@sethpollack',
+                    icon_url: 'http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200',
+                    icon_emoji: ':smile:',
+                    text: '[INFO] foobar 999'
+                }),
+                url: 'mywebhookurl'
+            };
+
+            for(var i=0; i>1000;i++) {
+                log.info('foobar ' + i);
+            }
+
             setTimeout(function() {
                 sinon.assert.calledWith(request.post, expectedResponse);
-            }, 1000)
-		});
+            }, 1000);
+
+        });
 
 		it('should use the custom formatter', function() {
 			var log = Bunyan.createLogger({
@@ -113,9 +145,7 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info('foobar');
-            setTimeout(function() {
-                sinon.assert.calledWith(request.post, expectedResponse);
-            }, 1000)
+			sinon.assert.calledWith(request.post, expectedResponse);
         });
 	});
 
@@ -149,9 +179,7 @@ describe('bunyan-slack', function() {
 				level: 'info'
 			});
 			log.info('foobar');
-            setTimeout(function() {
-				errorHandler.lastCall.args[1]('FAKE ERROR');
-            }, 1000)
+			errorHandler.firstCall.args[1]('FAKE ERROR');
         });
 	});
 
@@ -173,9 +201,7 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info('foobar');
-            setTimeout(function() {
-                sinon.assert.calledWith(request.post, expectedResponse);
-            }, 1000);
+			sinon.assert.calledWith(request.post, expectedResponse);
 		});
 
 		it('should accept a single object argument', function() {
@@ -198,10 +224,7 @@ describe('bunyan-slack', function() {
 			};
 
 			log.info({error: 'foobar'});
-            setTimeout(function() {
                 sinon.assert.calledWith(request.post, expectedResponse);
-            }, 1000);
-
         });
 
 		it('should accept an object and string as arguments', function() {
@@ -223,10 +246,7 @@ describe('bunyan-slack', function() {
 					url: 'mywebhookurl'
 			};
 			log.info({error: 'this is the error'}, 'this is the message');
-            setTimeout(function() {
-                sinon.assert.calledWith(request.post, expectedResponse);
-            }, 1000);
-
+			sinon.assert.calledWith(request.post, expectedResponse);
         });
 	});
 });
