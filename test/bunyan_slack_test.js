@@ -83,7 +83,7 @@ describe('bunyan-slack', function() {
                 url: 'mywebhookurl'
             };
 
-            for(var i=0; i>1000;i++) {
+            for(var i=0; i>1000; i++) {
                 log.info('foobar ' + i);
             }
 
