@@ -74,6 +74,12 @@ By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you spe
 ##Custom Formatter Options
 > Check the [slack docs](https://api.slack.com/incoming-webhooks) for custom formatter options.
 
+##Rate limit
+
+Since Slack has a rate limit of one message per second, there is an option for how many messages that are allowed to be sent.
+
+The option is called `rate_limit_interval` and the value is the interval time between each attempt to send a message. Setting `1000` would make the application maximum send 1 message per second, `100` 10 messages per second and so forth. Messages are stored in a circular queue and the eldest message will be discarded if more than 10 messages is put on the queue.
+
 ###Putting it all together
 ```javascript
 var bunyan  = require("bunyan"),

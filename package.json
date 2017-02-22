@@ -4,6 +4,7 @@
   "description": "slack stream for bunyan",
   "main": "./lib/bunyan-slack",
   "dependencies": {
+    "CBuffer": "^2.0.0",
     "extend.js": "0.0.2",
     "request": "^2.51.0"
   },
