@@ -258,6 +258,16 @@ describe('bunyan-slack', function() {
             bs.intervalRunner();
             expect(bs.messageQueue.pop()).to.equal(undefined);
         });
+
+        it('should return a message on the queue', function () {
+            var bs = new BunyanSlack({
+                webhook_url: 'mywebhookurl',
+                rate_limit_interval: 1000
+            });
+            bs.write({ level: 60, msg: 'Hello Sir' });
+            expect(bs.messageQueue.pop().text).to.equal('[FATAL] Hello Sir');
+        });
+
 	});
 });
 
