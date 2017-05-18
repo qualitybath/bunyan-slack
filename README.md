@@ -20,7 +20,7 @@ Then install bunyan-slack
 npm install bunyan-slack
 ```
 
-##Basic Setup
+## Basic Setup
 
 ```javascript
 var bunyan  = require("bunyan"),
@@ -53,7 +53,7 @@ new BunyanSlack({
 });
 ```
 
-##Custom Formatters
+## Custom Formatters
 
 By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you specify a `customFormatter` function.
 
@@ -71,10 +71,10 @@ By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you spe
 	level: "error"
 });
 ```
-##Custom Formatter Options
+## Custom Formatter Options
 > Check the [slack docs](https://api.slack.com/incoming-webhooks) for custom formatter options.
 
-###Putting it all together
+### Putting it all together
 ```javascript
 var bunyan  = require("bunyan"),
 	BunyanSlack = require('bunyan-slack'),
@@ -127,5 +127,3 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
