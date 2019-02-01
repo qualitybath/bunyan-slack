@@ -215,6 +215,21 @@ describe('bunyan-slack', function() {
 			sinon.assert.calledWith(request.post, expectedResponse);
 		});
 	});
-});
 
+	describe('log levels', function () {
+		it('should log according to stream log level', function () {
+			var log = Bunyan.createLogger({
+				name: 'myapp',
+				stream: new BunyanSlack({
+					webhook_url: 'mywebhookurl',
+					level: 'error'
+				}),
+				level: 'info'
+			});
+
+			log.info('foobar');
+			sinon.assert.notCalled(request.post);
+		});
+	});
+});
 
