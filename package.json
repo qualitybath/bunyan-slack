@@ -1,6 +1,6 @@
 {
   "name": "bunyan-slack",
-  "version": "0.0.10",
+  "version": "0.1.0",
   "description": "slack stream for bunyan",
   "main": "./lib/bunyan-slack",
   "dependencies": {
