@@ -3,17 +3,18 @@
 export = bunyan_slack;
 
 interface BunyanSlackOptions {
-    webhook_url: string;
-    channel: string;
-    username: string;
-    icon_emoji?: string;
-    customFormatter: (record: {msg: string}, levelName: string) => void;
+	webhook_url: string;
+	channel: string;
+	username: string;
+	icon_emoji?: string;
+	customFormatter: (record: {msg: string}, levelName: string) => void;
+	fetch: (options: any) => Promise<any>;
 }
 
 type ErrorHandler = (err: Error) => void;
 
 declare class bunyan_slack {
-    constructor(options: BunyanSlackOptions, error: ErrorHandler);
+	constructor(options: BunyanSlackOptions, error: ErrorHandler);
 
-    write(record: string | {level: string; msg: string}): any;
+	write(record: string | {level: string; msg: string}): any;
 }
