@@ -41,5 +41,6 @@
     }
   ],
   "author": "Seth Pollack",
-  "license": "MIT"
+  "license": "MIT",
+  "types": "./bunyan-slack.d.ts"
 }
