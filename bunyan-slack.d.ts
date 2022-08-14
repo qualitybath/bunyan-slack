@@ -7,8 +7,8 @@ interface BunyanSlackOptions {
 	channel: string;
 	username: string;
 	icon_emoji?: string;
-	customFormatter: (record: {msg: string}, levelName: string) => void;
-	fetch: (options: any) => Promise<any>;
+	customFormatter?: (record: {msg: string}, levelName: string) => void;
+	fetch?: (options: any) => Promise<any>;
 }
 
 type ErrorHandler = (err: Error) => void;
