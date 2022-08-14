@@ -14,7 +14,7 @@ interface BunyanSlackOptions {
 type ErrorHandler = (err: Error) => void;
 
 declare class bunyan_slack {
-	constructor(options: BunyanSlackOptions, error: ErrorHandler);
+	constructor(options: BunyanSlackOptions, error?: ErrorHandler);
 
 	write(record: string | {level: string; msg: string}): any;
 }
