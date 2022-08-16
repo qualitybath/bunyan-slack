@@ -1,129 +1,103 @@
-# bunyan-slack
-[![bunyan-slack](http://img.shields.io/npm/v/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
-[![bunyan-slack](http://img.shields.io/npm/dm/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
-[![bunyan-slack](http://img.shields.io/npm/l/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
-[![Build Status](https://img.shields.io/travis/qualitybath/bunyan-slack.svg?style=flat-square)](https://travis-ci.org/qualitybath/bunyan-slack)
-[![Coveralls](https://img.shields.io/coveralls/qualitybath/bunyan-slack.svg?style=flat-square)](https://coveralls.io/r/qualitybath/bunyan-slack)
-[![code climate](https://img.shields.io/codeclimate/github/qualitybath/bunyan-slack.svg?style=flat-square)](https://codeclimate.com/github/qualitybath/bunyan-slack)
+# TSDX User Guide
 
-**Bunyan stream for Slack chat integration**
+Congrats! You just saved yourself hours of work by bootstrapping this project with TSDX. Let’s get you oriented with what’s here and how to use it.
 
-First install bunyan...
+> This TSDX setup is meant for developing libraries (not apps!) that can be published to NPM. If you’re looking to build a Node app, you could use `ts-node-dev`, plain `ts-node`, or simple `tsc`.
 
-```
-npm install bunyan
-```
+> If you’re new to TypeScript, checkout [this handy cheatsheet](https://devhints.io/typescript)
 
-Then install bunyan-slack
+## Commands
 
-```
-npm install bunyan-slack
+TSDX scaffolds your new library inside `/src`.
+
+To run TSDX, use:
+
+```bash
+npm start # or yarn start
 ```
 
-## Basic Setup
+This builds to `/dist` and runs the project in watch mode so any edits you save inside `src` causes a rebuild to `/dist`.
 
-```javascript
-var bunyan  = require("bunyan"),
-	BunyanSlack = require('bunyan-slack'),
-	log;
+To do a one-off build, use `npm run build` or `yarn build`.
 
-log = bunyan.createLogger({
-	name: "myApp",
-	stream: new BunyanSlack({
-		webhook_url: "your_webhook_url",
-		channel: "#your_channel",
-		username: "your_username",
-	}),
-	level: "error"
-});
+To run tests, use `npm test` or `yarn test`.
 
-log.error("hello bunyan slack");
-```
-You can also pass an optional error handler.
+## Configuration
 
-> Specify a Slack channel by name with `"channel": "#other-channel"`, or send a Slackbot message to a specific user with `"channel": "@username"`.
+Code quality is set up for you with `prettier`, `husky`, and `lint-staged`. Adjust the respective fields in `package.json` accordingly.
 
-```javascript
-new BunyanSlack({
-	webhook_url: "your_webhook_url",
-	channel: "#your_channel",
-	username: "your_username",
-}, function(error){
-	console.log(error);
-});
-```
+### Jest
 
-## Custom Formatters
+Jest tests are set up to run with `npm test` or `yarn test`.
 
-By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you specify a `customFormatter` function.
+### Bundle Analysis
 
-```javascript
-	log = bunyan.createLogger({
-	name: "myApp",
-	stream: new BunyanSlack({
-		webhook_url: "your_webhook_url",
-		channel: "#your_channel",
-		username: "your_username",
-		customFormatter: function(record, levelName){
-			return {text: "[" + levelName + "] " + record.msg }
-		}
-	}),
-	level: "error"
-});
-```
-## Custom Formatter Options
-> Check the [slack docs](https://api.slack.com/incoming-webhooks) for custom formatter options.
+[`size-limit`](https://github.com/ai/size-limit) is set up to calculate the real cost of your library with `npm run size` and visualize the bundle with `npm run analyze`.
 
-### Putting it all together
-```javascript
-var bunyan  = require("bunyan"),
-	BunyanSlack = require('bunyan-slack'),
-	log;
+#### Setup Files
 
-log = bunyan.createLogger({
-	name: 'myapp',
-	stream: new BunyanSlack({
-		webhook_url: 'your_webhook_url',
-		icon_url: "your_icon_url",
-		channel: '#your_channel',
-		username: "your_username",
-		icon_emoji: ":scream_cat:",
-		customFormatter: function(record, levelName) {
-			return {
-				attachments: [{
-					fallback: "Required plain-text summary of the attachment.",
-					color: '#36a64f',
-					pretext: "Optional text that appears above the attachment block",
-					author_name: "Seth Pollack",
-					author_link: "http://sethpollack.net",
-					author_icon: "http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200",
-					title: "Slack API Documentation",
-					title_link: "https://api.slack.com/",
-					text: "Optional text that appears within the attachment",
-					fields: [{
-						title: "We have a new " + levelName + " log",
-						value: ":scream_cat: " + record.msg,
-						short: true
-					}]
-				}]
-			};
-		}
-	}),
-	level: 'error'
-});
+This is the folder structure we set up for you:
+
+```txt
+/src
+  index.tsx       # EDIT THIS
+/test
+  blah.test.tsx   # EDIT THIS
+.gitignore
+package.json
+README.md         # EDIT THIS
+tsconfig.json
 ```
 
-## Authors
-* [Seth Pollack](https://github.com/sethpollack)
+### Rollup
 
-***
-This library was adapted from  [winston-bishop-slack](https://github.com/lapwinglabs/winston-bishop-slack)
+TSDX uses [Rollup](https://rollupjs.org) as a bundler and generates multiple rollup configs for various module formats and build settings. See [Optimizations](#optimizations) for details.
 
-The MIT License  
-Copyright (c) 2015 [QualityBath.com](https://www.qualitybath.com/)
+### TypeScript
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+`tsconfig.json` is set up to interpret `dom` and `esnext` types, as well as `react` for `jsx`. Adjust according to your needs.
 
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+## Continuous Integration
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+### GitHub Actions
+
+Two actions are added by default:
+
+- `main` which installs deps w/ cache, lints, tests, and builds on all pushes against a Node and OS matrix
+- `size` which comments cost comparison of your library on every pull request using [`size-limit`](https://github.com/ai/size-limit)
+
+## Optimizations
+
+Please see the main `tsdx` [optimizations docs](https://github.com/palmerhq/tsdx#optimizations). In particular, know that you can take advantage of development-only optimizations:
+
+```js
+// ./types/index.d.ts
+declare var __DEV__: boolean;
+
+// inside your code...
+if (__DEV__) {
+  console.log('foo');
+}
+```
+
+You can also choose to install and use [invariant](https://github.com/palmerhq/tsdx#invariant) and [warning](https://github.com/palmerhq/tsdx#warning) functions.
+
+## Module Formats
+
+CJS, ESModules, and UMD module formats are supported.
+
+The appropriate paths are configured in `package.json` and `dist/index.js` accordingly. Please report if any issues are found.
+
+## Named Exports
+
+Per Palmer Group guidelines, [always use named exports.](https://github.com/palmerhq/typescript#exports) Code split inside your React app instead of your React library.
+
+## Including Styles
+
+There are many ways to ship styles, including with CSS-in-JS. TSDX has no opinion on this, configure how you like.
+
+For vanilla CSS, you can include it at the root directory and add it to the `files` section in your `package.json`, so that it can be imported separately by your users and run through their bundler's loader.
+
+## Publishing to NPM
+
+We recommend using [np](https://github.com/sindresorhus/np).
