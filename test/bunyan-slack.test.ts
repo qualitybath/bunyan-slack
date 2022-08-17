@@ -109,7 +109,7 @@ describe('Bunyan Slack', () => {
   });
 
   describe('error handler', function() {
-    it('should use error handler', function() {
+    it('should use the custom error handler', function() {
       const onError = jest.fn();
 
       const options = {
