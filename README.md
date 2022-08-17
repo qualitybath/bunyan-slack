@@ -3,9 +3,6 @@
 [![bunyan-slack](http://img.shields.io/npm/v/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
 [![bunyan-slack](http://img.shields.io/npm/dm/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
 [![bunyan-slack](http://img.shields.io/npm/l/bunyan-slack.svg?style=flat-square)](https://www.npmjs.com/package/bunyan-slack)
-[![Build Status](https://img.shields.io/travis/qualitybath/bunyan-slack.svg?style=flat-square)](https://travis-ci.org/qualitybath/bunyan-slack)
-[![Coveralls](https://img.shields.io/coveralls/qualitybath/bunyan-slack.svg?style=flat-square)](https://coveralls.io/r/qualitybath/bunyan-slack)
-[![code climate](https://img.shields.io/codeclimate/github/qualitybath/bunyan-slack.svg?style=flat-square)](https://codeclimate.com/github/qualitybath/bunyan-slack)
 
 **Bunyan stream for Slack chat integration**
 
@@ -24,17 +21,21 @@ npm install bunyan-slack
 ## Basic Setup
 
 ```javascript
-var bunyan = require('bunyan'),
-  BunyanSlack = require('bunyan-slack'),
-  log;
+const bunyan = require('bunyan');
+const BunyanSlack = require('bunyan-slack');
 
-log = bunyan.createLogger({
+const log = bunyan.createLogger({
   name: 'myApp',
-  stream: new BunyanSlack({
-    webhook_url: 'your_webhook_url',
-    channel: '#your_channel',
-    username: 'your_username',
-  }),
+  streams: [
+    {
+      type: 'raw',
+      stream: new BunyanSlack({
+        webhookUrl: 'your_webhook_url',
+        channel: '#your_channel',
+        username: 'your_username',
+      }),
+    },
+  ],
   level: 'error',
 });
 
@@ -46,16 +47,14 @@ You can also pass an optional error handler.
 > Specify a Slack channel by name with `"channel": "#other-channel"`, or send a Slackbot message to a specific user with `"channel": "@username"`.
 
 ```javascript
-new BunyanSlack(
-  {
-    webhook_url: 'your_webhook_url',
-    channel: '#your_channel',
-    username: 'your_username',
-  },
-  function(error) {
+const stream = new BunyanSlack({
+  webhookUrl: 'your_webhook_url',
+  channel: '#your_channel',
+  username: 'your_username',
+  onError: function(error) {
     console.log(error);
-  }
-);
+  },
+});
 ```
 
 ## Custom Formatters
@@ -63,10 +62,10 @@ new BunyanSlack(
 By default the logs are formatted like so: `[LOG_LEVEL] message`, unless you specify a `customFormatter` function.
 
 ```javascript
-log = bunyan.createLogger({
+const log = bunyan.createLogger({
   name: 'myApp',
   stream: new BunyanSlack({
-    webhook_url: 'your_webhook_url',
+    webhookUrl: 'your_webhook_url',
     channel: '#your_channel',
     username: 'your_username',
     customFormatter: function(record, levelName) {
@@ -84,18 +83,17 @@ log = bunyan.createLogger({
 ### Putting it all together
 
 ```javascript
-var bunyan = require('bunyan'),
-  BunyanSlack = require('bunyan-slack'),
-  log;
+const bunyan = require('bunyan');
+const BunyanSlack = require('bunyan-slack');
 
-log = bunyan.createLogger({
+const log = bunyan.createLogger({
   name: 'myapp',
   stream: new BunyanSlack({
-    webhook_url: 'your_webhook_url',
-    icon_url: 'your_icon_url',
+    webhookUrl: 'your_webhook_url',
+    iconUrl: 'your_icon_url',
     channel: '#your_channel',
     username: 'your_username',
-    icon_emoji: ':scream_cat:',
+    iconEmoji: ':scream_cat:',
     customFormatter: function(record, levelName) {
       return {
         attachments: [
