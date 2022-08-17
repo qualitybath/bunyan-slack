@@ -23,8 +23,8 @@ function defaultFormatter<T extends { msg: string; level: ERecordLevel }>(
 
 export default class BunyanSlack<T extends { msg: string; level: ERecordLevel }> {
   webhookUrl: string;
-  channel: string;
-  username: string;
+  channel?: string;
+  username?: string;
   iconUrl?: string;
   iconEmoji?: string;
   customFormatter: (
@@ -39,6 +39,9 @@ export default class BunyanSlack<T extends { msg: string; level: ERecordLevel }>
       onError?: BunyanSlack<T>['onError'];
     }
   ) {
+    if (!options.webhookUrl) {
+      throw new Error('Webhook url required');
+    }
     this.webhookUrl = options.webhookUrl;
     this.channel = options.channel;
     this.username = options.username;
@@ -48,9 +51,9 @@ export default class BunyanSlack<T extends { msg: string; level: ERecordLevel }>
     this.onError = options.onError || noop;
   }
 
-  async write(record: T | string) {
+  async write(record: Object) {
     try {
-      const parsedRecord = typeof record === 'string' ? (JSON.parse(record) as T) : record;
+      const parsedRecord = typeof record === 'string' ? (JSON.parse(record) as T) : (record as T);
       const levelName = ERecordLevel[parsedRecord.level] as keyof typeof ERecordLevel;
 
       const body = {
