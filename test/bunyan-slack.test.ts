@@ -35,7 +35,7 @@ describe('Bunyan Slack', () => {
           username: options.username,
           icon_url: options.iconUrl,
           icon_emoji: options.iconEmoji,
-          message: { text: `[INFO] ${logText}` },
+          text: `[INFO] ${logText}`,
         },
       });
     });
@@ -81,28 +81,26 @@ describe('Bunyan Slack', () => {
       log.info(logText);
       expect(spy).toHaveBeenCalledWith(options.webhookUrl, {
         json: {
-          message: {
-            attachments: [
-              {
-                fallback: 'Required plain-text summary of the attachment.',
-                color: '#36a64f',
-                pretext: 'Optional text that appears above the attachment block',
-                author_name: 'Seth Pollack',
-                author_link: 'http://sethpollack.net',
-                author_icon: 'http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200',
-                title: 'Slack API Documentation',
-                title_link: 'https://api.slack.com/',
-                text: 'Optional text that appears within the attachment',
-                fields: [
-                  {
-                    title: 'We have a new info log',
-                    value: ':scream_cat: foobar',
-                    short: true,
-                  },
-                ],
-              },
-            ],
-          },
+          attachments: [
+            {
+              fallback: 'Required plain-text summary of the attachment.',
+              color: '#36a64f',
+              pretext: 'Optional text that appears above the attachment block',
+              author_name: 'Seth Pollack',
+              author_link: 'http://sethpollack.net',
+              author_icon: 'http://www.gravatar.com/avatar/3f5ce68fb8b38a5e08e7abe9ac0a34f1?s=200',
+              title: 'Slack API Documentation',
+              title_link: 'https://api.slack.com/',
+              text: 'Optional text that appears within the attachment',
+              fields: [
+                {
+                  title: 'We have a new info log',
+                  value: ':scream_cat: foobar',
+                  short: true,
+                },
+              ],
+            },
+          ],
         },
       });
     });
