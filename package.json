@@ -9,6 +9,22 @@
 		"dist",
 		"src"
 	],
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/qualitybath/bunyan-slack"
+	},
+	"keywords": [
+		"logging",
+		"slack",
+		"bunyan",
+		"log",
+		"logger",
+		"transport",
+		"stream"
+	],
+	"bugs": {
+		"url": "https://github.com/qualitybath/bunyan-slack/issues"
+	},
 	"engines": {
 		"node": ">=14"
 	},
