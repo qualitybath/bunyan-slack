@@ -58,11 +58,11 @@ export default class BunyanSlack<T extends { msg: string; level: ERecordLevel }>
 
       const message = this.customFormatter(parsedRecord, levelName);
       const body = {
-        ...message,
         channel: this.channel,
         username: this.username,
         icon_url: this.iconUrl,
         icon_emoji: this.iconEmoji,
+        ...message,
       };
 
       await got.post(this.webhookUrl, { json: body });
