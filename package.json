@@ -1,8 +1,10 @@
 {
 	"version": "1.0.0",
-	"license": "MIT",
+	"name": "bunyan-slack",
+	"module": "dist/bunyan-slack.esm.js",
 	"main": "dist/index.js",
 	"typings": "dist/index.d.ts",
+	"license": "MIT",
 	"files": [
 		"dist",
 		"src"
@@ -17,7 +19,6 @@
 		"lint": "tsdx lint",
 		"prepare": "tsdx build"
 	},
-	"peerDependencies": {},
 	"husky": {
 		"hooks": {
 			"pre-commit": "tsdx lint"
@@ -28,9 +29,6 @@
 		"singleQuote": true,
 		"trailingComma": "es5"
 	},
-	"name": "bunyan-slack",
-	"author": "Michal Tikotzky",
-	"module": "dist/bunyan-slack.esm.js",
 	"devDependencies": {
 		"@slack/types": "^2.7.0",
 		"@types/bunyan": "^1.8.8",
