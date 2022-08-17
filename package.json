@@ -15,9 +15,7 @@
 		"build": "tsdx build",
 		"test": "tsdx test",
 		"lint": "tsdx lint",
-		"prepare": "tsdx build",
-		"size": "size-limit",
-		"analyze": "size-limit --why"
+		"prepare": "tsdx build"
 	},
 	"peerDependencies": {},
 	"husky": {
@@ -33,23 +31,11 @@
 	"name": "bunyan-slack",
 	"author": "Michal Tikotzky",
 	"module": "dist/bunyan-slack.esm.js",
-	"size-limit": [
-		{
-			"path": "dist/bunyan-slack.cjs.production.min.js",
-			"limit": "10 KB"
-		},
-		{
-			"path": "dist/bunyan-slack.esm.js",
-			"limit": "10 KB"
-		}
-	],
 	"devDependencies": {
-		"@size-limit/preset-small-lib": "^8.0.1",
 		"@slack/types": "^2.7.0",
 		"@types/bunyan": "^1.8.8",
 		"bunyan": "^1.8.15",
 		"husky": "^8.0.1",
-		"size-limit": "^8.0.1",
 		"tsdx": "^0.14.1",
 		"tslib": "^2.4.0",
 		"typescript": "^4.7.4"
